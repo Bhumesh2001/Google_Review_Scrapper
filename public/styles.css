@@ -65,6 +65,28 @@ h3 {
   font-size: 0.95rem;
 }
 
-#reviewsContainer {
-  margin-top: 1.5rem;
+/* Custom dropdown styling */
+.suggestions {
+  position: absolute;
+  z-index: 1000;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: none;
+}
+
+.suggestions .suggestion-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.suggestions .suggestion-item:hover {
+  background-color: #f1f1f1;
+}
+
+.container {
+  position: relative;
 }

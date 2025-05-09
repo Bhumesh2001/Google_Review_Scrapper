@@ -17,10 +17,21 @@
         <input
           type="text"
           id="placeInput"
+          list="placesList"
           class="form-control mb-2"
           placeholder="Enter Business Name"
           required
         />
+
+        <datalist id="placesList">
+          <option value="Statue of Liberty"></option>
+          <option value="Eiffel Tower"></option>
+          <option value="Lamborghini Dubai"></option>
+          <option value="Dishoom Shoreditch London"></option>
+          <option value="Taj Mahal"></option>
+          <option value="Googleplex"></option>
+        </datalist>
+
         <button id="scrapeBtn" class="btn btn-primary">Scrape Reviews</button>
 
         <div id="loader" class="text-center my-4 d-none">
@@ -63,8 +74,6 @@
           loader.classList.add("d-none");
 
           if (!data.success) {
-            console.log(data);
-            
             alertBox.innerHTML = `<div class="alert alert-danger">${data.message}</div>`;
             return;
           }
