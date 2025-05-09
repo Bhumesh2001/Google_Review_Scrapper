@@ -17,7 +17,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 // Routes
 app.get('/', (req, res) => {
-    res.render('dashboard'); // No server-side data passed
+    res.render('dashboard');
 });
 
 app.post('/scrape-reviews', async (req, res) => {
