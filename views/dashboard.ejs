@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Google Maps Review Scraper</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="bg-dark text-light">
+    <div class="container py-5">
+      <h1 class="mb-4">Google Maps Review Scraper</h1>
+
+      <div class="mb-4">
+        <input
+          type="text"
+          id="placeInput"
+          class="form-control mb-2"
+          placeholder="Enter Business Name"
+          required
+        />
+        <button id="scrapeBtn" class="btn btn-primary">Scrape Reviews</button>
+
+        <div id="loader" class="text-center my-4 d-none">
+          <div class="spinner-border text-info" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <p class="mt-2">Fetching reviews...</p>
+        </div>
+      </div>
+
+      <div id="alertBox"></div>
+      <div id="reviewsContainer" class="list-group"></div>
+    </div>
+
+    <script>
+      const scrapeBtn = document.getElementById("scrapeBtn");
+      const placeInput = document.getElementById("placeInput");
+      const loader = document.getElementById("loader");
+      const reviewsContainer = document.getElementById("reviewsContainer");
+      const alertBox = document.getElementById("alertBox");
+
+      scrapeBtn.addEventListener("click", async () => {
+        const input = placeInput.value.trim();
+        if (!input) return;
+
+        loader.classList.remove("d-none");
+        reviewsContainer.innerHTML = "";
+        alertBox.innerHTML = "";
+
+        try {
+          const response = await fetch("/scrape-reviews", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ input }),
+          });
+
+          const data = await response.json();
+          loader.classList.add("d-none");
+
+          if (!data.success) {
+            console.log(data);
+            
+            alertBox.innerHTML = `<div class="alert alert-danger">${data.message}</div>`;
+            return;
+          }
+
+          if (data.reviews && data.reviews.length > 0) {
+            const reviewsHTML = data.reviews
+              .map(
+                (r) => `
+                <div class="list-group-item bg-secondary text-light mb-2">
+                  <h5>${r.name} - ⭐ ${r.rating}</h5>
+                  <small>${r.date}</small>
+                  <p>${r.comment}</p>
+                </div>`
+              )
+              .join("");
+            reviewsContainer.innerHTML = `<h3 class="text-info">Reviews</h3>${reviewsHTML}`;
+          } else {
+            alertBox.innerHTML = `<div class="alert alert-warning">No reviews found.</div>`;
+          }
+        } catch (err) {
+          loader.classList.add("d-none");
+          alertBox.innerHTML = `<div class="alert alert-danger">Something went wrong. Please try again.</div>`;
+        }
+      });
+    </script>
+  </body>
+</html>

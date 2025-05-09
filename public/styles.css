@@ -1,0 +1,70 @@
+body {
+  background-color: #121212;
+  color: #e0e0e0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+  max-width: 800px;
+}
+
+input.form-control {
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  color: #fff;
+  padding: 12px;
+  border-radius: 8px;
+  transition: border-color 0.2s ease-in-out;
+}
+
+input.form-control:focus {
+  border-color: #61dafb;
+  box-shadow: 0 0 0 3px rgba(97, 218, 251, 0.2);
+  outline: none;
+}
+
+input.form-control::placeholder {
+  color: #aaa;
+}
+
+.btn-primary {
+  background-color: #1f6feb;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+}
+
+.btn-primary:hover {
+  background-color: #1a5fd4;
+  transform: scale(1.03);
+}
+
+.list-group-item {
+  background-color: #1e1e1e;
+  border: 1px solid #2a2a2a;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease-in-out;
+}
+
+.list-group-item:hover {
+  transform: translateY(-2px);
+}
+
+h1,
+h3 {
+  color: #61dafb;
+  font-weight: 600;
+}
+
+.alert {
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+#reviewsContainer {
+  margin-top: 1.5rem;
+}
