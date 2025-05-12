@@ -27,8 +27,9 @@ app.post('/scrape-reviews', async (req, res) => {
     }
 
     try {
-        const reviews = await scrapeReviews(input);
-        res.status(200).json({ success: true, reviews });
+        const data = await scrapeReviews(input);
+        const allReviews = data.flatMap(place => place.reviews);
+        res.status(200).json({ success: true, reviews: allReviews });
     } catch (err) {
         console.error('Error scraping reviews:', err.message);
         res.status(500).json({
