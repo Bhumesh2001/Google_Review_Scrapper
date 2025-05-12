@@ -9,6 +9,7 @@ async function scrapeReviews(placeName, numReviews = 10, retries = 1) {
             browser = await puppeteer.launch({
                 args: chromium.args,
                 defaultViewport: chromium.defaultViewport,
+                  executablePath: '/usr/bin/chromium',
                 headless: true,
                 timeout: 30000,
             });
