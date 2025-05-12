@@ -1,6 +1,5 @@
 const chromium = require('chrome-aws-lambda');
 const puppeteer = require('puppeteer');
-// const fs = require('fs');
 
 async function scrapeReviews(placeName, numReviews = 10, retries = 1) {
     let browser;
@@ -133,15 +132,5 @@ async function scrapeReviews(placeName, numReviews = 10, retries = 1) {
         }
     }
 };
-
-// scrapeReviews('Taj Mahal')
-//     .then(data => {
-//         const allReviews = data.flatMap(place => place.reviews);
-//         console.log('All Reviews:', allReviews);
-//         fs.writeFileSync('reviews.json', JSON.stringify(allReviews, null, 2));
-//     })
-//     .catch(error => {
-//         console.error('Error:', error);
-//     });
 
 module.exports = scrapeReviews;
