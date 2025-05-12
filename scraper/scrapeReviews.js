@@ -1,5 +1,5 @@
 const chromium = require('chrome-aws-lambda');
-const puppeteer = require('puppeteer-core');
+const puppeteer = require('puppeteer');
 // const fs = require('fs');
 
 async function scrapeReviews(placeName, numReviews = 10, retries = 1) {
@@ -9,7 +9,6 @@ async function scrapeReviews(placeName, numReviews = 10, retries = 1) {
             browser = await puppeteer.launch({
                 args: chromium.args,
                 defaultViewport: chromium.defaultViewport,
-                executablePath: await chromium.executablePath,
                 headless: true,
                 timeout: 30000,
             });
