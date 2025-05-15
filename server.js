@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const scrapeReviews = require('./scraper/scrapeReviews');
+const getPlaceName = require('./utils/helper');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -16,10 +17,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // Routes
-app.get('/', (req, res) => {
-    res.render('dashboard');
-});
-
+app.get('/', (req, res) => res.render('dashboard'));
 app.post('/scrape-reviews', async (req, res) => {
     const { input } = req.body;
     if (!input) {
@@ -27,7 +25,8 @@ app.post('/scrape-reviews', async (req, res) => {
     }
 
     try {
-        const data = await scrapeReviews(input);
+        const inputData = await getPlaceName(input);
+        const data = await scrapeReviews(inputData);
         const allReviews = data.flatMap(place => place.reviews);
         res.status(200).json({ success: true, reviews: allReviews });
     } catch (err) {
